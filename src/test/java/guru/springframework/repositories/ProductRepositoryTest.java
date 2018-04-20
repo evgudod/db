@@ -1,6 +1,6 @@
 package guru.springframework.repositories;
 
-import guru.springframework.domain.Product;
+import guru.springframework.domain.TradeItem;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +20,7 @@ public class ProductRepositoryTest {
     private static final String IMAGE_URL = "http://an-imageurl.com/image1.jpg";
 
     @Autowired
-    private ProductRepository productRepository;
+    private TradeItemRepository productRepository;
 
     @Before
     public void setUp() throws Exception {
@@ -30,20 +30,17 @@ public class ProductRepositoryTest {
     @Test
     public void testPersistence() {
         //given
-        Product product = new Product();
+        TradeItem product = new TradeItem();
         product.setDescription(PRODUCT_DESCRIPTION);
-        product.setImageUrl(IMAGE_URL);
-        product.setPrice(BIG_DECIMAL_100);
+
 
         //when
         productRepository.save(product);
 
         //then
         Assert.assertNotNull(product.getId());
-        Product newProduct = productRepository.findOne(product.getId());
+        TradeItem newProduct = productRepository.findOne(product.getId());
         Assert.assertEquals((Long) 1L, newProduct.getId());
-        Assert.assertEquals(PRODUCT_DESCRIPTION, newProduct.getDescription());
-        Assert.assertEquals(BIG_DECIMAL_100.compareTo(newProduct.getPrice()), 0);
-        Assert.assertEquals(IMAGE_URL, newProduct.getImageUrl());
+
     }
 }
